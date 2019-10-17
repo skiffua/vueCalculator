@@ -17,8 +17,6 @@ div {
 }
 strong {
     font-size: 2em;
-    letter-spacing: 2px;
-    
-}
-    
+    letter-spacing: 2px;    
+}    
 </style>
