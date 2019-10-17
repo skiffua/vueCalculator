@@ -1,13 +1,13 @@
 <template>
-  <button v-button_color>{{ button_label }}</button> 
+  <button v-button_color="button_goal">{{ button_label }}</button> 
 </template>
 
 <script>
 import button_color from '../directives/buttonColor'
 export default {
-    props: ['button_label'], 
+    props: ['button_label','button_goal'], 
     directives: {
-      button_color,
+      button_color,      
     }   
 }
 </script>
@@ -17,5 +17,12 @@ export default {
   button {
     font-weight: 400;
     font-size: 1.2em; 
+  }
+  button:hover {
+    cursor: pointer;
+    filter: brightness(95%);
+  }
+  button:focus {
+    outline:0;
   }
 </style>

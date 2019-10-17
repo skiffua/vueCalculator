@@ -6,9 +6,9 @@
     <div class="calc_buttons">
       <Button 
         v-for="val in button_values" 
-        :key="val" 
-        :button_label="val" 
-        :value="val" 
+        :key="val.value" 
+        :button_label="val.value"
+        :button_goal="val.goal" 
       />
     </div>
   </div>
@@ -26,26 +26,26 @@ export default {
   data: function() {
     return {
       button_values: [
-        "(",
-        ")",
-        "%",
-        "<-",
-        "7",
-        "8",
-        "9",
-        "/",
-        "4",
-        "5",
-        "6",
-        "*",
-        "1",
-        "2",
-        "3",
-        "-",
-        "0",
-        ".",
-        "=",
-        "+"
+        {goal: "operation_button", value: "("},
+        {goal: "operation_button", value: ")"},
+        {goal: "operation_button", value: "%"},
+        {goal: "operation_button", value: "<-"},
+        {goal: "digit_button", value: "7"},
+        {goal: "digit_button", value: "8"},
+        {goal: "digit_button", value: "9"},
+        {goal: "operation_button", value: "/"},
+        {goal: "digit_button", value: "4"},
+        {goal: "digit_button", value: "5"},
+        {goal: "digit_button", value: "6"},
+        {goal: "operation_button", value: "*"},
+        {goal: "digit_button", value: "1"},
+        {goal: "digit_button", value: "2"},
+        {goal: "digit_button", value: "3"},
+        {goal: "operation_button", value: "-"},
+        {goal: "digit_button", value: "0"},
+        {goal: "operation_button", value: "."},
+        {goal: "equal_button", value: "="},
+        {goal: "operation_button", value: "+"},
       ]
     };
   }
