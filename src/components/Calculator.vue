@@ -4,7 +4,12 @@
       <CalcScrean />
     </div>
     <div class="calc_buttons">
-      <Button v-for="val in button_values" :key="val" :button_label="val" />
+      <Button 
+        v-for="val in button_values" 
+        :key="val" 
+        :button_label="val" 
+        :value="val" 
+      />
     </div>
   </div>
 </template>
@@ -49,8 +54,9 @@ export default {
 
 <style>
 .calculator {
+  margin: 20px auto;
   width: 60%;
-  margin: auto;
+  max-width: 400px;
 }
 .calcScrean {
     border: solid 2px #4d90fd;
@@ -58,9 +64,12 @@ export default {
     text-align: right
 }
 .calc_buttons {
+  --grid_gap: 10px;
+  margin-top: 10px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-column-gap: 10px;
-  grid-row-gap: 15px;
+  grid-template-rows: repeat(5, 5vw);
+  grid-column-gap: var(--grid_gap);
+  grid-row-gap: var(--grid_gap);
 }
 </style>
