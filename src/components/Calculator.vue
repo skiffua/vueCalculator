@@ -2,7 +2,6 @@
     <div>
         <div class="environment-block">
             <h1>Try to use calculator</h1>
-            <button class="change-calc-view">View</button>
         </div>
 
         <div class="calculator">
@@ -49,13 +48,13 @@
                     <button class="btn-grey" value="+" @click="onOperationClick('+')">+</button>
                 </div>
             </div>
-            <p v-for="(operation, index) in history" v-bind:key="index">{{ operation }}</p>
         </div>
     </div>
 </template>
 
 <script>
     export default {
+
         data() {
             return {
                 calc_screen: '',
@@ -64,12 +63,15 @@
                 second_argument: '',
                 lastSecond_argument: '',
                 operation: '',
-                lastOperation: '',
-                history: []
+                lastOperation: ''
             }
         },
 
         methods: {
+            pushOperationInState(operation, result) {
+                this.$store.commit('pushOperationToHistory', { operation, result })
+            },
+
             onClearScreen() {
                 this.calc_screen = '';
                 this.first_argument = '';
@@ -81,7 +83,6 @@
             },
 
             onDigitClick(digit) {
-
                 if (this.error) {
                     this.onClearScreen();
                 }
@@ -101,7 +102,6 @@
             },
 
             onDotClick() {
-
                 if (!this.operation) {
                     this.first_argument = this.addDot(this.first_argument);
                 } else {
@@ -112,22 +112,21 @@
             },
 
             addDot(argument) {
-
                 argument = argument || '0';
                 argument += argument.indexOf('.') !== -1 ? '' : '.';
+
                 return argument;
             },
 
             onOperationClick(operation) {
-
                 if (!this.first_argument) {
                     this.first_argument = '0';
                 }
 
-                this.first_argument = this.deleteDotIfNoDigitAfter(this.first_argument)
+                this.first_argument = this.deleteDotIfNoDigitAfter(this.first_argument);
 
                 if (this.second_argument) {
-                    this.second_argument = this.deleteDotIfNoDigitAfter(this.second_argument)
+                    this.second_argument = this.deleteDotIfNoDigitAfter(this.second_argument);
                     this.onGetResult();
                 }
 
@@ -136,7 +135,6 @@
             },
 
             deleteDotIfNoDigitAfter(argument) {
-
                 if (argument.indexOf('.') === (argument.length - 1)) {
                     return argument.slice(0, argument.length - 1)
                 } else {
@@ -145,52 +143,61 @@
             },
 
             onGetResult() {
+                if (this.first_argument && !this.operation && !this.second_argument && this.lastOperation) {
+                    this.operation = this.lastOperation;
+                    this.second_argument = this.lastSecond_argument;
+                }
 
-                try {
-                    if (!this.first_argument || (!this.first_argument && !this.second_argument)) {
-                        return;
-                    }
+                if (this.first_argument && this.operation && !this.second_argument) {
+                    this.second_argument = this.first_argument;
+                }
 
-                    if (!this.operation && !this.lastOperation) {
-                        return;
-                    }
+                if (this.second_argument) {
+                    this.second_argument = this.deleteDotIfNoDigitAfter(this.second_argument)
+                }
 
-                    if (this.first_argument && !this.operation && !this.second_argument && this.lastOperation) {
-                        this.operation = this.lastOperation;
-                        this.second_argument = this.lastSecond_argument;
-                    }
 
-                    if (this.first_argument && this.operation && !this.second_argument) {
-                        this.second_argument = this.first_argument;
-                    }
+                const valid = this.validate();
 
-                    if (this.second_argument === '0' && this.operation === '/') {
-                        throw new Error('Can not divide by zero');
-                    }
-
-                    if (this.second_argument) {
-                        this.second_argument = this.deleteDotIfNoDigitAfter(this.second_argument)
-                    }
-
+                if (valid === true) {
                     this.result();
 
                     const result = eval(this.calc_screen).toString();
-                    this.history.push(this.calc_screen + '=' + result);
+
                     this.first_argument = result;
                     this.lastSecond_argument = this.second_argument;
                     this.second_argument = '';
-
                     this.lastOperation = this.operation;
                     this.operation = '';
 
+                    this.pushOperationInState(this.calc_screen, result);
+
                     this.result();
-                } catch (e) {
-                    this.error = e.message;
+                } else {
+                    if (valid) {
+                        this.error = valid;
+                    }
                 }
             },
 
             result() {
                 this.calc_screen = this.first_argument + this.operation + this.second_argument;
+            },
+
+            validate() {
+                if (!this.first_argument || (!this.first_argument && !this.second_argument)) {
+                    return false;
+                }
+
+                if (!this.operation && !this.lastOperation) {
+                    return false;
+                }
+
+                if (this.second_argument === '0' && this.operation === '/') {
+                    return 'Can not divide by zero';
+                }
+
+                return true;
             }
         }
     }
@@ -198,32 +205,6 @@
 
 <style scoped lang="scss">
     @import '../assets/variables';
-
-
-    .environment-block {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        height: 80px;
-        margin-top: 60px;
-        padding: 0 $environment-block-padding-big-screen;
-        border-bottom: 1px solid #ebebeb;
-        color: #4f4f4f;
-        background-color: #fbfbfb;
-
-        @media screen and (max-width: 620px) {
-            padding: 0 $environment-block-padding-small-screen;
-        }
-
-        .change-calc-view {
-            width: 120px;
-            height: 25px;
-            border: none;
-            border-radius: 3px;
-            color: #fbfbfb;
-            background-color: #ff7c1f;
-        }
-    }
 
     .calculator {
         max-width: 500px;

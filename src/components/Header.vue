@@ -4,10 +4,9 @@
     <div class="menu-block">
       <ul class="menu">
         <li>
-          <a class="active-link" href="#" >Main</a>
-        </li>
+          <router-link to="/" active-class="active-link" exact>Home</router-link>
         <li>
-          <a href="#">History</a>
+          <router-link to="/history" active-class="active-link">History</router-link>
         </li>
       </ul>
     </div>
