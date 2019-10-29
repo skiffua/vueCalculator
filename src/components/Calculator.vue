@@ -52,9 +52,11 @@
     </div>
 </template>
 
-<script>
-    export default {
+<script lang="ts">
 
+    import Vue from 'vue'
+
+    export default Vue.extend({
         data() {
             return {
                 calc_screen: '',
@@ -111,7 +113,7 @@
                 this.result();
             },
 
-            addDot(argument) {
+            addDot(argument: string) {
                 argument = argument || '0';
                 argument += argument.indexOf('.') !== -1 ? '' : '.';
 
@@ -200,7 +202,7 @@
                 return true;
             }
         }
-    }
+    })
 </script>
 
 <style scoped lang="scss">
