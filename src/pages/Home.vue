@@ -2,6 +2,10 @@
     <div>
         <Header />
         <Calculator />
+        <button @click="onShowModalWindow()">  </button>
+        <modal name="hello-world">
+            hello, world!
+        </modal>
     </div>
 </template>
 
@@ -17,6 +21,11 @@
         components: {
             Header,
             Calculator
+        },
+        methods: {
+            onShowModalWindow(){
+                this.$modal.show('hello-world');
+            }
         }
 
     }
