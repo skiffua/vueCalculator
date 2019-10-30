@@ -4,22 +4,21 @@
         <Calculator />
     </div>
 </template>
-
 <script>
 
-    import Header from '../components/Header'
-    import Calculator from '../components/Calculator'
+import Header from '../components/Header.vue';
+import Calculator from '../components/Calculator.vue';
 
-    export default {
+export default {
 
-        name: "Home",
+  name: 'Home',
 
-        components: {
-            Header,
-            Calculator
-        }
+  components: {
+    Header,
+    Calculator,
+  },
 
-    }
+};
 
 </script>
 

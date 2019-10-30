@@ -7,36 +7,43 @@
         </div>
         <ul class="historyOperations">
             <li v-for="({ operation, result }, index) in historyList" v-bind:key="index">
-                <div class="expression">{{ operation }}</div><div class="equalSymbol">=</div><div class="expression">{{ result }}</div>
+                <div class="expression">
+                  {{ operation }}
+                </div>
+              <div class="equalSymbol">
+                =
+              </div>
+              <div class="expression">
+                {{ result }}
+              </div>
             </li>
         </ul>
     </div>
 </template>
-
 <script>
 
-    import Header from '../components/Header'
+import Header from '../components/Header.vue';
 
-    export default {
+export default {
 
-        name: "History",
+  name: 'History',
 
-        components: {
-            Header,
-        },
+  components: {
+    Header,
+  },
 
-        computed: {
-            historyList(){
-              return this.$store.state.history
-            }
-        },
+  computed: {
+    historyList() {
+      return this.$store.state.history;
+    },
+  },
 
-        methods: {
-            onCleanHistory(){
-                this.$store.commit('cleanHistory')
-            }
-        }
-    }
+  methods: {
+    onCleanHistory() {
+      this.$store.commit('cleanHistory');
+    },
+  },
+};
 
 </script>
 

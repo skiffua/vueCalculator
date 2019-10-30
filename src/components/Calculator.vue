@@ -10,7 +10,9 @@
             </div>
             <div class="calc_buttons">
                 <div class="engineer-block">
-                    <button class="btn-grey two-horizontal-cells" value="convert-degree" onclick="">Rad | Deg</button>
+                    <button class="btn-grey two-horizontal-cells" value="convert-degree" onclick="">
+                      Rad | Deg
+                    </button>
                     <button class="btn-grey" value="fact">x!</button>
                     <button class="btn-grey" value="inv">Inv</button>
                     <button class="btn-grey" value="sin">sin</button>
@@ -54,155 +56,155 @@
 
 <script lang="ts">
 
-    import Vue from 'vue'
+import Vue from 'vue';
 
-    export default Vue.extend({
-        data() {
-            return {
-                calc_screen: '',
-                error: '',
-                first_argument: '',
-                second_argument: '',
-                lastSecond_argument: '',
-                operation: '',
-                lastOperation: ''
-            }
-        },
+export default Vue.extend({
+  data() {
+    return {
+      calc_screen: '',
+      error: '',
+      first_argument: '',
+      second_argument: '',
+      lastSecond_argument: '',
+      operation: '',
+      lastOperation: '',
+    };
+  },
 
-        methods: {
-            pushOperationInState(operation, result) {
-                this.$store.commit('pushOperationToHistory', { operation, result })
-            },
+  methods: {
+    pushOperationInState(operation: string, result: string) {
+      this.$store.commit('pushOperationToHistory', { operation, result });
+    },
 
-            onClearScreen() {
-                this.calc_screen = '';
-                this.first_argument = '';
-                this.second_argument = '';
-                this.lastSecond_argument = '';
-                this.operation = '';
-                this.lastOperation = '';
-                this.error = '';
-            },
+    onClearScreen() {
+      this.calc_screen = '';
+      this.first_argument = '';
+      this.second_argument = '';
+      this.lastSecond_argument = '';
+      this.operation = '';
+      this.lastOperation = '';
+      this.error = '';
+    },
 
-            onDigitClick(digit: string) {
-                if (this.error) {
-                    this.onClearScreen();
-                }
+    onDigitClick(digit: string) {
+      if (this.error) {
+        this.onClearScreen();
+      }
 
-                const number = this.operation ? this.second_argument : this.first_argument;
+      const number = this.operation ? this.second_argument : this.first_argument;
 
-                if (number === '0') {
-                    this.operation ? this.second_argument = '' : this.first_argument = '';
-                }
-
-                if (this.operation) {
-                    this.second_argument += digit;
-                } else {
-                    this.first_argument += digit;
-                }
-                this.result();
-            },
-
-            onDotClick() {
-                if (!this.operation) {
-                    this.first_argument = this.addDot(this.first_argument);
-                } else {
-                    this.second_argument = this.addDot(this.second_argument);
-                }
-
-                this.result();
-            },
-
-            addDot(argument: string) {
-                argument = argument || '0';
-                argument += argument.indexOf('.') !== -1 ? '' : '.';
-
-                return argument;
-            },
-
-            onOperationClick(operation) {
-                if (!this.first_argument) {
-                    this.first_argument = '0';
-                }
-
-                this.first_argument = this.deleteDotIfNoDigitAfter(this.first_argument);
-
-                if (this.second_argument) {
-                    this.second_argument = this.deleteDotIfNoDigitAfter(this.second_argument);
-                    this.onGetResult();
-                }
-
-                this.operation = operation;
-                this.result();
-            },
-
-            deleteDotIfNoDigitAfter(argument) {
-                if (argument.indexOf('.') === (argument.length - 1)) {
-                    return argument.slice(0, argument.length - 1)
-                } else {
-                    return argument
-                }
-            },
-
-            onGetResult() {
-                if (this.first_argument && !this.operation && !this.second_argument && this.lastOperation) {
-                    this.operation = this.lastOperation;
-                    this.second_argument = this.lastSecond_argument;
-                }
-
-                if (this.first_argument && this.operation && !this.second_argument) {
-                    this.second_argument = this.first_argument;
-                }
-
-                if (this.second_argument) {
-                    this.second_argument = this.deleteDotIfNoDigitAfter(this.second_argument)
-                }
-
-
-                const valid = this.validate();
-
-                if (valid === true) {
-                    this.result();
-
-                    const result = eval(this.calc_screen).toString();
-
-                    this.first_argument = result;
-                    this.lastSecond_argument = this.second_argument;
-                    this.second_argument = '';
-                    this.lastOperation = this.operation;
-                    this.operation = '';
-
-                    this.pushOperationInState(this.calc_screen, result);
-
-                    this.result();
-                } else {
-                    if (valid) {
-                        this.error = valid;
-                    }
-                }
-            },
-
-            result() {
-                this.calc_screen = this.first_argument + this.operation + this.second_argument;
-            },
-
-            validate() {
-                if (!this.first_argument || (!this.first_argument && !this.second_argument)) {
-                    return false;
-                }
-
-                if (!this.operation && !this.lastOperation) {
-                    return false;
-                }
-
-                if (this.second_argument === '0' && this.operation === '/') {
-                    return 'Can not divide by zero';
-                }
-
-                return true;
-            }
+      if (number === '0') {
+        if (this.operation) {
+          this.second_argument = '';
+        } else {
+          this.first_argument = '';
         }
-    })
+      }
+
+      if (this.operation) {
+        this.second_argument += digit;
+      } else {
+        this.first_argument += digit;
+      }
+      this.result();
+    },
+
+    onDotClick() {
+      if (!this.operation) {
+        this.first_argument = this.addDot(this.first_argument);
+      } else {
+        this.second_argument = this.addDot(this.second_argument);
+      }
+
+      this.result();
+    },
+
+    addDot(argument: string) {
+      let calcArgument = argument || '0';
+      calcArgument += calcArgument.indexOf('.') !== -1 ? '' : '.';
+
+      return calcArgument;
+    },
+
+    onOperationClick(operation: string) {
+      if (!this.first_argument) {
+        this.first_argument = '0';
+      }
+
+      this.first_argument = this.deleteDotIfNoDigitAfter(this.first_argument);
+
+      if (this.second_argument) {
+        this.second_argument = this.deleteDotIfNoDigitAfter(this.second_argument);
+        this.onGetResult();
+      }
+
+      this.operation = operation;
+      this.result();
+    },
+
+    deleteDotIfNoDigitAfter(argument: string) {
+      if (argument.indexOf('.') === (argument.length - 1)) {
+        return argument.slice(0, argument.length - 1);
+      }
+      return argument;
+    },
+
+    onGetResult() {
+      if (this.first_argument && !this.operation && !this.second_argument && this.lastOperation) {
+        this.operation = this.lastOperation;
+        this.second_argument = this.lastSecond_argument;
+      }
+
+      if (this.first_argument && this.operation && !this.second_argument) {
+        this.second_argument = this.first_argument;
+      }
+
+      if (this.second_argument) {
+        this.second_argument = this.deleteDotIfNoDigitAfter(this.second_argument);
+      }
+
+
+      const valid = this.validate();
+
+      if (valid === true) {
+        this.result();
+        // eslint-disable-next-line no-eval
+        const result = eval(this.calc_screen).toString();
+        this.first_argument = result;
+        this.lastSecond_argument = this.second_argument;
+        this.second_argument = '';
+        this.lastOperation = this.operation;
+        this.operation = '';
+
+        this.pushOperationInState(this.calc_screen, result);
+
+        this.result();
+      } else if (valid) {
+        this.error = valid;
+      }
+    },
+
+    result() {
+      this.calc_screen = this.first_argument + this.operation + this.second_argument;
+    },
+
+    validate() {
+      if (!this.first_argument || (!this.first_argument && !this.second_argument)) {
+        return false;
+      }
+
+      if (!this.operation && !this.lastOperation) {
+        return false;
+      }
+
+      if (this.second_argument === '0' && this.operation === '/') {
+        return 'Can not divide by zero';
+      }
+
+      return true;
+    },
+  },
+});
 </script>
 
 <style scoped lang="scss">
