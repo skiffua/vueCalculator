@@ -84,7 +84,7 @@
                 this.error = '';
             },
 
-            onDigitClick(digit) {
+            onDigitClick(digit: string) {
                 if (this.error) {
                     this.onClearScreen();
                 }
