@@ -1,30 +1,17 @@
 <template>
-  <div id="app">
-    <Header />
-    <Calculator />
-  </div>
+   <router-view></router-view>
 </template>
 
 <script>
-  import Header from "./components/Header";
-  import Calculator from './components/Calculator';
 
-  export default {
-    name: "app",
-    components: {
-      Header,
-      Calculator,
-    },
-  };
+export default {
+  name: "app",
+};
+
 </script>
 
-<style>
-  @import '~normalize.css/normalize.css';
+<style lang="scss">
 
-  #app {
-    font-family: "Avenir", Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
+    @import './assets/app';
 
 </style>
