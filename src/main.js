@@ -6,7 +6,11 @@ import router from './routes'
 import store from './store'
 
 Vue.use(VueRouter)
-Vue.use(VModal)
+Vue.use(VModal, {
+
+
+
+})
 Vue.config.productionTip = false
 
 new Vue({

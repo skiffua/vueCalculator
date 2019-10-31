@@ -2,8 +2,8 @@
     <div>
         <Header />
         <Calculator />
-        <button @click="onShowModalWindow()">  </button>
-        <modal name="hello-world">
+        <button @click="onShowModalWindow()">Show modal window</button>
+        <modal name="hello-world" class="modal-window">
             hello, world!
         </modal>
     </div>
@@ -33,5 +33,7 @@
 </script>
 
 <style scoped>
-
+    .modal-window{
+        color: red
+    }
 </style>
