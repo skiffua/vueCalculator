@@ -1,4 +1,7 @@
-import { Store } from 'vuex';
+import Vue from 'vue';
+import Vuex, { Store } from 'vuex';
+
+Vue.use(Vuex);
 
 interface RootState {
   history: any[]
