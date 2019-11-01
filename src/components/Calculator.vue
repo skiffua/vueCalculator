@@ -58,8 +58,18 @@
 
 import Vue from 'vue';
 
+interface CalculatorData {
+    calc_screen: string,
+    error: string,
+    first_argument: string,
+    second_argument: string,
+    lastSecond_argument: string,
+    operation: string,
+    lastOperation: string
+}
+
 export default Vue.extend({
-  data() {
+  data(): CalculatorData {
     return {
       calc_screen: '',
       error: '',
@@ -119,7 +129,7 @@ export default Vue.extend({
       this.result();
     },
 
-    addDot(argument: string) {
+    addDot(argument: string): string {
       let calcArgument = argument || '0';
       calcArgument += calcArgument.indexOf('.') !== -1 ? '' : '.';
 
@@ -142,7 +152,7 @@ export default Vue.extend({
       this.result();
     },
 
-    deleteDotIfNoDigitAfter(argument: string) {
+    deleteDotIfNoDigitAfter(argument: string): string {
       if (argument.indexOf('.') === (argument.length - 1)) {
         return argument.slice(0, argument.length - 1);
       }
