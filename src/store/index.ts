@@ -4,7 +4,7 @@ import Vuex, { Store } from 'vuex';
 Vue.use(Vuex);
 
 interface RootState {
-  history: any[]
+  history: Array<{ operation: string, result: string }>
 }
 
 const store: Store<RootState> = new Store({
@@ -19,7 +19,7 @@ const store: Store<RootState> = new Store({
       state.history.push(data);
     },
 
-    cleanHistory(state) {
+    cleanHistory(state: RootState) {
       state.history.splice(0, state.history.length);
     },
 

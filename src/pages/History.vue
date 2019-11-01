@@ -20,13 +20,12 @@
         </ul>
     </div>
 </template>
-<script>
+
+<script lang="ts">
 
 import Header from '../components/Header.vue';
 
 export default {
-
-
 
   name: 'History',
 
@@ -35,13 +34,13 @@ export default {
   },
 
   computed: {
-    historyList() {
+    historyList(this: any): any {
       return this.$store.state.history;
     },
   },
 
   methods: {
-    onCleanHistory() {
+    onCleanHistory(this: any): any {
       this.$store.commit('cleanHistory');
     },
   },

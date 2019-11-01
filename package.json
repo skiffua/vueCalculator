@@ -6,10 +6,13 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "heroku-prebuild": "npm install --dev",
+    "heroku-app": "npm run buld"
   },
   "dependencies": {
     "@babel/preset-typescript": "^7.6.0",
+    "babel-eslint": "^10.0.3",
     "core-js": "^3.3.2",
     "normalize.css": "^8.0.1",
     "vue": "^2.6.10",
@@ -34,39 +37,6 @@
     "sass-loader": "^8.0.0",
     "typescript": "~3.5.3",
     "vue-template-compiler": "^2.6.10"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/essential",
-      "@vue/airbnb",
-      "@vue/typescript"
-    ],
-    "rules": {
-      "camelcase": [
-        2,
-        {
-          "properties": "never"
-        }
-      ]
-    },
-    "parserOptions": {
-      "parser": "@typescript-eslint/parser"
-    },
-    "overrides": [
-      {
-        "files": [
-          "**/__tests__/*.{j,t}s?(x)",
-          "**/tests/unit/**/*.spec.{j,t}s?(x)"
-        ],
-        "env": {
-          "jest": true
-        }
-      }
-    ]
   },
   "postcss": {
     "plugins": {

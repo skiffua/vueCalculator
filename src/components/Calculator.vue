@@ -96,7 +96,7 @@ export default Vue.extend({
       this.error = '';
     },
 
-    onDigitClick(digit: string) {
+    onDigitClick(digit: string): void {
       if (this.error) {
         this.onClearScreen();
       }
@@ -119,7 +119,7 @@ export default Vue.extend({
       this.result();
     },
 
-    onDotClick() {
+    onDotClick(): void {
       if (!this.operation) {
         this.first_argument = this.addDot(this.first_argument);
       } else {
@@ -136,7 +136,7 @@ export default Vue.extend({
       return calcArgument;
     },
 
-    onOperationClick(operation: string) {
+    onOperationClick(operation: string): void {
       if (!this.first_argument) {
         this.first_argument = '0';
       }
@@ -159,7 +159,7 @@ export default Vue.extend({
       return argument;
     },
 
-    onGetResult() {
+    onGetResult(): void {
       if (this.first_argument && !this.operation && !this.second_argument && this.lastOperation) {
         this.operation = this.lastOperation;
         this.second_argument = this.lastSecond_argument;
@@ -194,11 +194,11 @@ export default Vue.extend({
       }
     },
 
-    result() {
+    result(): void {
       this.calc_screen = this.first_argument + this.operation + this.second_argument;
     },
 
-    validate() {
+    validate(): boolean | string {
       if (!this.first_argument || (!this.first_argument && !this.second_argument)) {
         return false;
       }

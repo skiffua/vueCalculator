@@ -1,18 +1,31 @@
 module.exports = {
-  "env": {
-    "es6": true,
-    "node": true
+  root: true,
+  env: {
+    es6: true,
+    node: true,
   },
-  "extends": "eslint:recommended",
-  "globals": {
-    "Atomics": "readonly",
-    "SharedArrayBuffer": "readonly"
+  extends: [
+    'plugin:vue/essential',
+    '@vue/airbnb',
+    '@vue/typescript',
+  ],
+  parserOptions: {
+    parser: '@typescript-eslint/parser',
+    ecmaVersion: 2018,
+    sourceType: 'module',
   },
-  "parserOptions": {
-    "ecmaVersion": 2018,
-    "sourceType": "module"
+  rules: {
+    camelcase: 0,
   },
-  "rules": {
-    "camelcase": [2, {"properties": "never"}]
-  }
+  overrides: [
+    {
+      files: [
+        '**/__tests__/*.{j,t}s?(x)',
+        '**/tests/unit/**/*.spec.{j,t}s?(x)',
+      ],
+      env: {
+        jest: true,
+      },
+    },
+  ],
 };
