@@ -8,7 +8,7 @@
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
     "heroku-prebuild": "npm install --dev",
-    "heroku-app": "npm run buld"
+    "heroku-app": "npm run build"
   },
   "dependencies": {
     "@babel/preset-typescript": "^7.6.0",
