@@ -2,6 +2,7 @@
     <div>
         <Header />
         <Calculator />
+        <AnimationBlock />
     </div>
 </template>
 
@@ -9,6 +10,7 @@
 
     import Header from '../components/Header'
     import Calculator from '../components/Calculator'
+    import AnimationBlock from '../components/AnimationBlock'
 
     export default {
 
@@ -16,7 +18,8 @@
 
         components: {
             Header,
-            Calculator
+            Calculator,
+            AnimationBlock
         }
 
     }

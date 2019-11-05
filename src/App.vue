@@ -14,4 +14,5 @@ export default {
 
     @import './assets/app';
 
+
 </style>
